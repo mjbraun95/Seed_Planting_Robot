@@ -25,9 +25,7 @@ last_gps_location = [0,0]
 gps_vector = [0,0]
 location_vector = [0,0]
 
-# Set robot speed and turning speed
-speed = 30
-# turning_speed_dps = 100
+
 
 def calculate_bearing(point1, point2):
     lat1, lon1 = math.radians(point1[0]), math.radians(point1[1])
@@ -78,6 +76,10 @@ def update_gps_data():
 
 
 if __name__ == "__main__":
+    # Set robot speed and turning speed
+    speed = 10
+    # turning_speed_dps = 100
+    
     # Start bluetooth server
     bluetooth_server()
 
