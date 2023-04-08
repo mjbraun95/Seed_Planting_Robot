@@ -135,11 +135,14 @@ def start_lidar():
 
 
 def run_once(camera):
+    next_step = None
     if camera:
         try:
-            run(camera)
+            next_step = run(camera)
         except Exception as e:
             print(e)
+        finally:
+            return next_step
 
 # if __name__ == "__main__":
 #     parser = argparse.ArgumentParser(description='Senses when objects are near')
