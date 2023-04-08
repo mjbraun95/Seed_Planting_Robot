@@ -133,12 +133,14 @@ def turn_right_degrees(speed, angle_degrees, pulses_per_rotation, wheelbase):
     motor1_pwm.ChangeDutyCycle(0)
     motor2_pwm.ChangeDutyCycle(0)
 
+motor2_scaling_factor = 1.1
+
 # TODO: Test
 def drive_motor(motor1_pwm, motor1_dir, motor2_pwm, motor2_dir, direction1, direction2, speed, duration):
     GPIO.output(motor1_dir, direction1)
     GPIO.output(motor2_dir, direction2)
     motor1_pwm.ChangeDutyCycle(speed)
-    motor2_pwm.ChangeDutyCycle(speed*1.25)
+    motor2_pwm.ChangeDutyCycle(speed*motor2_scaling_factor)
     time.sleep(duration)
     motor1_pwm.ChangeDutyCycle(0)
     motor2_pwm.ChangeDutyCycle(0)
