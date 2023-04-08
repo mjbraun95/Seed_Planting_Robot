@@ -11,6 +11,9 @@ from bluetooth_gatt_server import main as bluetooth_server
 from tau_lidar_camera.distance import cleanup, start, run_once, run
 # from tau_lidar_camera import distance
 
+global motor1_pwm
+global motor2_pwm
+
 uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
 gps = adafruit_gps.GPS(uart, debug=False)  # Use UART/pyserial
 
@@ -90,8 +93,8 @@ if __name__ == "__main__":
     # lidar_thread = threading.Thread(target=update_lidar_data)
     # gps_thread = threading.Thread(target=update_gps_data)
 
-    lidar_thread.start()
-    gps_thread.start()
+    # lidar_thread.start()
+    # gps_thread.start()
 
     drive_controls.init_drive_controls()
 
