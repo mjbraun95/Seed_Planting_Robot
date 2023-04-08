@@ -5,6 +5,10 @@ import math
 # Define the GPIO pins connected to the motor driver board
 # TODO?: Convert to BOARD format
 def init_drive_controls():
+    global M1PWM
+    global M1DIR
+    global M2PWM
+    global M2DIR
     M1PWM = 17
     M1DIR = 27
     M2PWM = 22
@@ -25,6 +29,8 @@ def init_drive_controls():
 
     # Define wheel parameters
     # TODO: Confirm in lab
+    global WHEELBASE
+    global WHEEL_DIAMETER
     WHEELBASE = 393 #mm
     WHEEL_DIAMETER = 152 #mm
 
@@ -39,12 +45,16 @@ def init_drive_controls():
     GPIO.setup(M2DIR, GPIO.OUT)
 
     # Set up the PWM signals for motor speed control (with a 100Hz frequency)
+    global motor1_pwm
+    global motor2_pwm
     motor1_pwm = GPIO.PWM(M1PWM, 100)
     motor2_pwm = GPIO.PWM(M2PWM, 100)
 
     # Start the PWM signals with a 0% duty cycle (stopped motors)
     motor1_pwm.start(0)
     motor2_pwm.start(0)
+    
+    return (motor1_pwm, motor2_pwm, mot1)
     
     
 
