@@ -6,6 +6,8 @@ import gps_module
 import lidar_module
 import seed_planter
 from bluetooth_gatt_server import main as bluetooth_server
+from tau_lidar_camera.distance import run as run_lidar
+# from tau_lidar_camera import distance
 
 # Set target GPS coordinates here
 target_lat = 0.0
