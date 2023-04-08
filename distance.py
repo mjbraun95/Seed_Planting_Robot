@@ -75,11 +75,9 @@ def run(camera):
             else:
                 print ("Object detected closer to the right. Turn left.")
                 return "turn left"
-        else:
-            return "straight"
 
-            mat_depth_rgb = np.frombuffer(frame.data_depth_rgb, dtype=np.uint16, count=-1, offset=0).reshape(frame.height, frame.width, 3)
-            mat_depth_rgb = mat_depth_rgb.astype(np.uint8)
+            # mat_depth_rgb = np.frombuffer(frame.data_depth_rgb, dtype=np.uint16, count=-1, offset=0).reshape(frame.height, frame.width, 3)
+            # mat_depth_rgb = mat_depth_rgb.astype(np.uint8)
 
             # # array is 160 rows, 3 columns
             # # first 80 rows is left half, last 80 rows is right half
@@ -116,7 +114,8 @@ def run(camera):
 
             # Press "esc" to close camera window
             # if cv2.waitKey(1) == 27: break
-
+        else:
+            return "straight"
 
 def cleanup(camera):
     print('\nShutting down ...')
