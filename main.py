@@ -137,7 +137,7 @@ if __name__ == "__main__":
             #         )
             else:
                 # Drive forward
-                drive_controls.drive_forward(speed, duration)
+                drive_controls.drive_forward(speed, 0.25)
 
 
     finally:
