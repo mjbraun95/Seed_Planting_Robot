@@ -34,7 +34,7 @@ def setup(serialPort=None):
         print("    resolution: %s" % cameraInfo.resolution)
         print("    port:       %s" % cameraInfo.port)
 
-        print("\nPress Esc key over GUI or Ctrl-c in terminal to shutdown ...")
+        print("\nPress Ctrl-c in terminal to shutdown ...")
 
     return camera
 
@@ -49,21 +49,21 @@ def run(camera):
 
             leftAvg = 0
             rightAvg = 0
+            # 60 arrays, 160 rows, 160 arrayRows
             for array in mat_depth:
                 arrayRow = 0
-                for row in array:
-                    curr = np.nanmean(row)
-                    if (~np.isnan(curr)):
-                        if (arrayRow < 80):
-                            leftAvg += curr
-                        else:
-                            rightAvg += curr
-                    arrayRow += 1
+                # for row in array:
+                #     curr = np.nanmean(row)
+                #     if (~np.isnan(curr)):
+                #         if (arrayRow < 80):
+                #             leftAvg += curr
+                #         else:
+                #             rightAvg += curr
+                #     arrayRow += 1
+                leftAvg = np.nanmean(array[0:79])
+                rightAvg = np.nanmean(array[80:159])
             
-            # leftAvg /= (60*80)
-            # rightAvg /= (60*80)
-            # print("Left: ", leftAvg, " Right: ", rightAvg)
-            if (leftAvg/(60*80) < 0.8 or rightAvg/(60*80) < 0.8):
+            if (leftAvg < 3840 or rightAvg < 3840):
                 if (leftAvg < rightAvg):
                     print("Object detected closer to the left. Turn right")
                 else:
