@@ -138,7 +138,7 @@ def drive_motor(motor1_pwm, motor1_dir, motor2_pwm, motor2_dir, direction1, dire
     GPIO.output(motor1_dir, direction1)
     GPIO.output(motor2_dir, direction2)
     motor1_pwm.ChangeDutyCycle(speed)
-    motor2_pwm.ChangeDutyCycle(speed)
+    motor2_pwm.ChangeDutyCycle(speed*1.25)
     time.sleep(duration)
     motor1_pwm.ChangeDutyCycle(0)
     motor2_pwm.ChangeDutyCycle(0)
