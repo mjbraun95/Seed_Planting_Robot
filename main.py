@@ -69,6 +69,7 @@ def update_gps_data():
 if __name__ == "__main__":
     # Set robot speed and turning speed
     speed = 10
+    duration = 3
     # turning_speed_dps = 100
     
     # Start bluetooth server
@@ -101,23 +102,23 @@ if __name__ == "__main__":
             print("next_step: ", next_step)
             if next_step == "turn left":
                 # Stop the robot and decide which way to turn
-                drive_controls.stop(1)
-                drive_controls.turn_left(speed, 1)
-                drive_controls.stop(1)
-                drive_controls.drive_forward(speed, 1)
-                drive_controls.stop(1)
-                drive_controls.turn_right(speed, 1)
-                drive_controls.stop(1)
+                drive_controls.stop(0.25)
+                drive_controls.turn_left(speed, duration)
+                drive_controls.stop(0.25)
+                drive_controls.drive_forward(speed, duration)
+                drive_controls.stop(0.25)
+                drive_controls.turn_right(speed, duration)
+                drive_controls.stop(0.25)
                 continue
             
             elif next_step == "turn right":
-                drive_controls.stop(1)
-                drive_controls.turn_right(speed, 1)
-                drive_controls.stop(1)
-                drive_controls.drive_forward(speed, 1)
-                drive_controls.stop(1)
-                drive_controls.turn_left(speed, 1)
-                drive_controls.stop(1)
+                drive_controls.stop(0.25)
+                drive_controls.turn_right(speed, duration)
+                drive_controls.stop(0.25)
+                drive_controls.drive_forward(speed, duration)
+                drive_controls.stop(0.25)
+                drive_controls.turn_left(speed, duration)
+                drive_controls.stop(0.25)
                 continue
             # else:
             #     # Calculate angle to target
@@ -136,7 +137,7 @@ if __name__ == "__main__":
             #         )
             else:
                 # Drive forward
-                drive_controls.drive_forward(speed, 1)
+                drive_controls.drive_forward(speed, duration)
 
 
     finally:
