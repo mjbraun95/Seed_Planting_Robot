@@ -182,8 +182,8 @@ def test2():
 
     stop(1)
 
-    # Turn right 180 degrees at 25% speed
-    turn_right_degrees(25, 180, pulses_per_rotation, WHEELBASE)
+    # Turn right 90 degrees at 25% speed
+    turn_right_degrees(25, 90, pulses_per_rotation, WHEELBASE)
 
     stop(1)
 
