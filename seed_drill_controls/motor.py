@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(11,GPIO.OUT) # Set pin 11 as output)
+GPIO.setup(29,GPIO.OUT) # Set pin 29 as output)
 
 servo = GPIO.PWM(11,50) # Define servo as PWM, pulse 50Hz
 servo.start(0) # Start PWM with pulse off
