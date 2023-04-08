@@ -58,9 +58,9 @@ def encoder2_callback(channel):
     global encoder2_count
     encoder2_count += 1
 
-# Attach the callback functions to the encoder pins
-GPIO.add_event_detect(ENCODER1_PIN, GPIO.RISING, callback=encoder1_callback)
-GPIO.add_event_detect(ENCODER2_PIN, GPIO.RISING, callback=encoder2_callback)
+# # Attach the callback functions to the encoder pins
+# GPIO.add_event_detect(ENCODER1_PIN, GPIO.RISING, callback=encoder1_callback)
+# GPIO.add_event_detect(ENCODER2_PIN, GPIO.RISING, callback=encoder2_callback)
 
 # TODO: Test
 # TODO: Calibrate turning_speed_dps
@@ -174,7 +174,7 @@ if __name__ == '__main__':
 
         # Turn right at 25% speed for 1 second
         turn_right(25, 1)
-        
+
         stop(1)
 
     finally:
