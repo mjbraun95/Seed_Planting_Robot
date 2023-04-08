@@ -6,7 +6,7 @@ import adafruit_gps
 import serial
 # from bluetooth_gatt_server.example_gatt_server import main as bluetooth_server
 # from tau_lidar_camera.distance import cleanup, start, run_once, run
-from distance import cleanup, start, run_once, run
+from distance import cleanup, start_lidar, run_once, run
 
 global motor1_pwm
 global motor2_pwm
