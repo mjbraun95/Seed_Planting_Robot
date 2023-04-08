@@ -176,21 +176,33 @@ def test2():
     # Drive forward at 25% speed for 3 seconds
     drive_forward(25, 3)
 
+    stop(1)
+
     # Turn left 90 degrees at 25% speed
     turn_left_degrees(25, 90, pulses_per_rotation, WHEELBASE)
+
+    stop(1)
 
     # Drive forward at 25% speed for 3 seconds
     drive_forward(25, 3)
 
+    stop(1)
+
     # Turn right 180 degrees at 25% speed
     turn_right_degrees(25, 180, pulses_per_rotation, WHEELBASE)
+
+    stop(1)
 
     # Drive backward at 25% speed for 3 seconds
     drive_backward(25, 3)
 
+    stop(1)
+
     # Pivot left in place at 25% speed for 1 second
     pivot_left(25, 1)
 
+    stop(1)
+    
     # Pivot right in place at 25% speed for 1 second
     pivot_right(25, 1)
 
