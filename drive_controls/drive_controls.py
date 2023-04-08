@@ -75,17 +75,17 @@ def turn_right(speed, duration):
 
 if __name__ == '__main__':
     try:
-        # Drive forward at 50% speed for 2 seconds
-        drive_forward(50, 2)
+        # Drive forward at 25% speed for 2 seconds
+        drive_forward(25, 2)
 
         # Drive backward at 25% speed for 1 second
         drive_backward(25, 1)
 
-        # Turn left at 50% speed for 1 second
-        turn_left(50, 1)
+        # Turn left at 25% speed for 1 second
+        turn_left(25, 1)
 
-        # Turn right at 50% speed for 1 second
-        turn_right(50, 1)
+        # Turn right at 25% speed for 1 second
+        turn_right(25, 1)
 
     finally:
         # Clean up the GPIO pins and stop the PWM signals
