@@ -11,17 +11,17 @@ from distance import cleanup, start, run_once, run
 global motor1_pwm
 global motor2_pwm
 
-uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
-gps = adafruit_gps.GPS(uart, debug=False)  # Use UART/pyserial
+# uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
+# gps = adafruit_gps.GPS(uart, debug=False)  # Use UART/pyserial
 
-location_stack = []
-next_location = [53,-113]
+# location_stack = []
+# next_location = [53,-113]
 
-last_gps_update = time.monotonic()
-gps_location = [0,0]
-last_gps_location = [0,0]
-gps_vector = [0,0]
-location_vector = [0,0]
+# last_gps_update = time.monotonic()
+# gps_location = [0,0]
+# last_gps_location = [0,0]
+# gps_vector = [0,0]
+# location_vector = [0,0]
 
 
 
@@ -37,13 +37,6 @@ def calculate_bearing(point1, point2):
     bearing = math.atan2(y, x)
 
     return math.degrees(bearing)
-
-
-def update_lidar_data():
-    global obstacle_detected
-    while True:
-        obstacle_detected = lidar_module.detect_obstacle(obstacle_threshold)
-        time.sleep(1)
 
 
 def check_reached(location_vector):
@@ -79,11 +72,11 @@ if __name__ == "__main__":
     # turning_speed_dps = 100
     
     # Start bluetooth server
-    bluetooth_server()
+    # bluetooth_server()
 
-    #initialize gps
-    gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
-    gps.send_command(b"PMTK220,1000")
+    # #initialize gps
+    # gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
+    # gps.send_command(b"PMTK220,1000")
 
     lidar_camera = start_lidar()
     
