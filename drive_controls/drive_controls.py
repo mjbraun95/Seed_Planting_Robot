@@ -141,41 +141,62 @@ def turn_right(speed, duration):
 def stop(duration):
     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.LOW, GPIO.LOW, 0, duration)
 
-# def pivot_left(speed, duration):
-#     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.LOW, GPIO.HIGH, speed, duration/2)
-#     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.HIGH, speed, duration/2)
+def pivot_left(speed, duration):
+    drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.LOW, GPIO.HIGH, speed, duration/2)
+    drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.HIGH, speed, duration/2)
 
-# def pivot_right(speed, duration):
-#     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.LOW, speed, duration/2)
-#     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.HIGH, speed, duration/2)
+def pivot_right(speed, duration):
+    drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.LOW, speed, duration/2)
+    drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.HIGH, speed, duration/2)
 
-# def drive_left(speed, duration):
-#     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.LOW, GPIO.HIGH, speed, duration)
+def test1():
+    # Drive forward at 25% speed for 2 seconds
+    drive_forward(25, 1)
 
-# def drive_right(speed, duration):
-#     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.LOW, speed, duration)
+    stop(1)
+
+    # Drive backward at 25% speed for 1 second
+    drive_backward(25, 1)
+
+    stop(1)
+
+    # Turn left at 25% speed for 1 second
+    turn_left(25, 1)
+
+    stop(1)
+
+    # Turn right at 25% speed for 1 second
+    turn_right(25, 1)
+
+    stop(1)
+
+def test2():
+    pulses_per_rotation = 300
+
+    # Drive forward at 25% speed for 3 seconds
+    drive_forward(25, 3)
+
+    # Turn left 90 degrees at 25% speed
+    turn_left_degrees(25, 90, pulses_per_rotation, WHEELBASE)
+
+    # Drive forward at 25% speed for 3 seconds
+    drive_forward(25, 3)
+
+    # Turn right 180 degrees at 25% speed
+    turn_right_degrees(25, 180, pulses_per_rotation, WHEELBASE)
+
+    # Drive backward at 25% speed for 3 seconds
+    drive_backward(25, 3)
+
+    # Pivot left in place at 25% speed for 1 second
+    pivot_left(25, 1)
+
+    # Pivot right in place at 25% speed for 1 second
+    pivot_right(25, 1)
 
 if __name__ == '__main__':
     try:
-        # Drive forward at 25% speed for 2 seconds
-        drive_forward(25, 1)
-
-        stop(1)
-
-        # Drive backward at 25% speed for 1 second
-        drive_backward(25, 1)
-
-        stop(1)
-
-        # Turn left at 25% speed for 1 second
-        turn_left(25, 1)
-
-        stop(1)
-
-        # Turn right at 25% speed for 1 second
-        turn_right(25, 1)
-
-        stop(1)
+        test2()
 
     finally:
         # Clean up the GPIO pins and stop the PWM signals
