@@ -21,6 +21,7 @@ def init_gps():
     gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
     gps.send_command(b"PMTK220,1000")
     
+
 def update_gps():
 #     # Print out details about the fix like location, date, etc.
 #     print("=" * 40)  # Print a separator line.
@@ -75,6 +76,9 @@ def check_reached(location_vector):
     else:
         return False
     
+
+
+def gps_update():
     
     
 
@@ -95,6 +99,6 @@ while True:
             # Try again if we don't have a fix yet.
             print("Waiting for fix...")
             continue
-        update_gps()
+        gps_location = [gps.latitude, gps.longitude]
         calc_orientation()
     

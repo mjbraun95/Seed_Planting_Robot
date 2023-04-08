@@ -2,16 +2,26 @@ import time
 import threading
 import math
 import drive_controls.drive_controls
-import gps_module
+import board
+import adafruit_gps
+import serial
 import lidar_module
 import seed_planter
 from bluetooth_gatt_server import main as bluetooth_server
 from tau_lidar_camera.distance import run as run_lidar
 # from tau_lidar_camera import distance
 
-# Set target GPS coordinates here
-target_lat = 0.0
-target_lon = 0.0
+uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
+gps = adafruit_gps.GPS(uart, debug=False)  # Use UART/pyserial
+
+location_stack = []
+next_location = [53,-113]
+
+last_gps_update = time.monotonic()
+gps_location = [0,0]
+last_gps_location = [0,0]
+gps_vector = [0,0]
+location_vector = [0,0]
 
 # Set robot speed and turning speed
 speed = 50
@@ -42,16 +52,41 @@ def update_lidar_data():
         time.sleep(1)
 
 
+def check_reached(location_vector):
+    threshold = 0.00001
+    if location_vector[0] < threshold or location_vector[1] < threshold:
+        return True
+    else:
+        return False
+
+def calc_orientation(gps_location, last_gps_location):
+    gps_vector = [gps_location[0]-last_gps_location[0],gps_location[1]-last_gps_location[1]]
+    print(gps_vector)
+    return gps_vector
+
 def update_gps_data():
-    global current_lat, current_lon
     while True:
-        current_lat, current_lon = gps_module.get_lat_lon()
-        time.sleep(1)
+        gps.update()
+        current = time.monotonic()
+        if current - last_gps_update >= 1.0:
+            last_gps_update = current
+            if not gps.has_fix:
+                # Try again if we don't have a fix yet.
+                print("Waiting for fix...")
+                continue
+            gps_location = [gps.latitude, gps.longitude]
+            calc_orientation()
+
 
 
 if __name__ == "__main__":
     # Start bluetooth server
     bluetooth_server()
+
+    #initialize gps
+    gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
+    gps.send_command(b"PMTK220,1000")
+
 
     # Start LiDAR and GPS data update threads
     lidar_thread = threading.Thread(target=update_lidar_data)
@@ -65,6 +100,7 @@ if __name__ == "__main__":
     seed_planter.seed2()
 
     while True:
+
         if obstacle_detected:
             # Stop the robot and decide which way to turn
             drive_controls.drive_forward(0, 0)
@@ -77,7 +113,7 @@ if __name__ == "__main__":
         else:
             # Calculate angle to target
             angle_to_target = calculate_bearing(
-                (current_lat, current_lon), (target_lat, target_lon)
+                (gps_location[0], gps_location[1]), (next_location[0], next_location[1])
             )
 
             # Turn the robot towards the target
