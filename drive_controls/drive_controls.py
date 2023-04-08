@@ -187,17 +187,18 @@ def test2():
 
     stop(1)
 
-    # Pivot left in place at 25% speed for 1 second
-    pivot_left(25, 1)
+    # # Pivot left in place at 25% speed for 1 second
+    # pivot_left(25, 1)
 
-    stop(1)
+    # stop(1)
 
-    # Pivot right in place at 25% speed for 1 second
-    pivot_right(25, 1)
+    # # Pivot right in place at 25% speed for 1 second
+    # pivot_right(25, 1)
 
 if __name__ == '__main__':
     try:
-        test2()
+        test1()
+        # test2()
 
     finally:
         # Clean up the GPIO pins and stop the PWM signals
