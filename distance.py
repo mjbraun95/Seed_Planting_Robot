@@ -28,11 +28,11 @@ def setup(serialPort=None):
         cameraInfo = camera.info()
 
         print("\nToF camera opened successfully:")
-        print("    model:      %s" % cameraInfo.model)
-        print("    firmware:   %s" % cameraInfo.firmware)
-        print("    uid:        %s" % cameraInfo.uid)
-        print("    resolution: %s" % cameraInfo.resolution)
-        print("    port:       %s" % cameraInfo.port)
+        # print("    model:      %s" % cameraInfo.model)
+        # print("    firmware:   %s" % cameraInfo.firmware)
+        # print("    uid:        %s" % cameraInfo.uid)
+        # print("    resolution: %s" % cameraInfo.resolution)
+        # print("    port:       %s" % cameraInfo.port)
 
         print("\nPress Ctrl-c in terminal to shutdown ...")
 
