@@ -54,7 +54,7 @@ def init_drive_controls():
     motor1_pwm.start(0)
     motor2_pwm.start(0)
     
-    return (motor1_pwm, motor2_pwm, mot1)
+    return (motor1_pwm, motor2_pwm)
     
     
 
