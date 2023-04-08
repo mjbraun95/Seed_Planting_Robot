@@ -151,24 +151,25 @@ def pivot_right(speed, duration):
     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.LOW, speed, duration/2)
     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.HIGH, speed, duration/2)
 
-def test1():
+def test1(speed = 25):
+    
     # Drive forward at 25% speed for 2 seconds
-    drive_forward(25, 1)
+    drive_forward(speed, 1)
 
     stop(1)
 
     # Drive backward at 25% speed for 1 second
-    drive_backward(25, 1)
+    drive_backward(speed, 1)
 
     stop(1)
 
     # Turn left at 25% speed for 1 second
-    turn_left(25, 1)
+    turn_left(speed, 1)
 
     stop(1)
 
     # Turn right at 25% speed for 1 second
-    turn_right(25, 1)
+    turn_right(speed, 1)
 
     stop(1)
 
@@ -198,6 +199,7 @@ def test2():
 if __name__ == '__main__':
     try:
         test1()
+        test1(30)
         # test2()
 
     finally:
