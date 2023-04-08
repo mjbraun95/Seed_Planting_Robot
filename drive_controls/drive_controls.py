@@ -144,10 +144,12 @@ def drive_motor(motor1_pwm, motor1_dir, motor2_pwm, motor2_dir, direction1, dire
     motor2_pwm.ChangeDutyCycle(0)
 
 def drive_forward(speed, duration):
-    drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.HIGH, speed, duration)
+    # drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.HIGH, speed, duration)
+    drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.LOW, GPIO.LOW, speed, duration)
 
 def drive_backward(speed, duration):
-    drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.LOW, GPIO.LOW, speed, duration)
+    # drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.LOW, GPIO.LOW, speed, duration)
+    drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.HIGH, speed, duration)
 
 def turn_left(speed, duration):
     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.LOW, GPIO.HIGH, speed, duration)
