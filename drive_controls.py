@@ -133,7 +133,7 @@ def turn_right_degrees(speed, angle_degrees, pulses_per_rotation, wheelbase):
     motor1_pwm.ChangeDutyCycle(0)
     motor2_pwm.ChangeDutyCycle(0)
 
-motor2_scaling_factor = 1.07
+motor2_scaling_factor = 1.06
 
 # TODO: Test
 def drive_motor(motor1_pwm, motor1_dir, motor2_pwm, motor2_dir, direction1, direction2, speed, duration):
