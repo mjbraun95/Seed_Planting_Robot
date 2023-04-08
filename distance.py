@@ -115,7 +115,7 @@ def run(camera):
             cv2.imshow('Depth Map', img)
 
             # Press "esc" to close camera window
-            if cv2.waitKey(1) == 27: break
+            # if cv2.waitKey(1) == 27: break
 
 
 def cleanup(camera):
