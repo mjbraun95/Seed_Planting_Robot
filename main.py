@@ -7,9 +7,8 @@ import adafruit_gps
 import serial
 import lidar_module
 import seed_planter
-from bluetooth_gatt_server import main as bluetooth_server
+from bluetooth_gatt_server.example_gatt_server import main as bluetooth_server
 from tau_lidar_camera.distance import cleanup, start, run_once, run
-# from tau_lidar_camera import distance
 
 global motor1_pwm
 global motor2_pwm
