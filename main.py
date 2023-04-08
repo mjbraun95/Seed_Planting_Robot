@@ -103,21 +103,21 @@ if __name__ == "__main__":
             if next_step == "turn left":
                 # Stop the robot and decide which way to turn
                 # drive_controls.stop(0.25)
-                drive_controls.turn_left(speed, duration)
+                drive_controls.turn_left(speed/3, duration*3)
                 # drive_controls.stop(0.25)
-                drive_controls.drive_forward(speed, duration)
+                drive_controls.drive_forward(speed, duration*2)
                 # drive_controls.stop(0.25)
-                drive_controls.turn_right(speed, duration)
+                drive_controls.turn_right(speed/3, duration*3)
                 # drive_controls.stop(0.25)
                 continue
             
             elif next_step == "turn right":
                 # drive_controls.stop(0.25)
-                drive_controls.turn_right(speed, duration)
+                drive_controls.turn_right(speed/3, duration*3)
                 # drive_controls.stop(0.25)
-                drive_controls.drive_forward(speed, duration)
+                drive_controls.drive_forward(speed, duration*2)
                 # drive_controls.stop(0.25)
-                drive_controls.turn_left(speed, duration)
+                drive_controls.turn_left(speed/3, duration*3)
                 # drive_controls.stop(0.25)
                 continue
             # else:
