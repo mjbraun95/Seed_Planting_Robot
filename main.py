@@ -8,7 +8,7 @@ import serial
 import lidar_module
 import seed_planter
 from bluetooth_gatt_server import main as bluetooth_server
-from tau_lidar_camera.distance import run as run_lidar
+from tau_lidar_camera.distance import cleanup, start, run_once, run
 # from tau_lidar_camera import distance
 
 uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
@@ -24,12 +24,8 @@ gps_vector = [0,0]
 location_vector = [0,0]
 
 # Set robot speed and turning speed
-speed = 50
-turning_speed_dps = 100
-
-# Define obstacle detection threshold
-obstacle_threshold = 1000
-
+speed = 30
+# turning_speed_dps = 100
 
 def calculate_bearing(point1, point2):
     lat1, lon1 = math.radians(point1[0]), math.radians(point1[1])
@@ -87,44 +83,58 @@ if __name__ == "__main__":
     gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
     gps.send_command(b"PMTK220,1000")
 
+    lidar_camera = start_lidar()
+    
 
-    # Start LiDAR and GPS data update threads
-    lidar_thread = threading.Thread(target=update_lidar_data)
-    gps_thread = threading.Thread(target=update_gps_data)
+    # # Start LiDAR and GPS data update threads
+    # lidar_thread = threading.Thread(target=update_lidar_data)
+    # gps_thread = threading.Thread(target=update_gps_data)
 
     lidar_thread.start()
     gps_thread.start()
 
-    # Plant seeds
-    seed_planter.seed1()
-    seed_planter.seed2()
+    # # Plant seeds
+    # seed_planter.seed1()
+    # seed_planter.seed2()
 
-    while True:
+    # while True:
+    for i in range(0,9):
 
-        if obstacle_detected:
+        if run_once(lidar_camera) == "turn left":
             # Stop the robot and decide which way to turn
-            drive_controls.drive_forward(0, 0)
+            drive_controls.stop(1)
             drive_controls.turn_left(speed, 1)
+            drive_controls.stop(1)
+            drive_controls.drive_forward(speed, 1)
+            drive_controls.stop(1)
+            drive_controls.turn_right(speed, 1)
+            drive_controls.stop(1)
+            continue
+        
+        elif run_once(lidar_camera) == "turn right":
+            drive_controls.stop(1)
+            drive_controls.turn_right(speed, 1)
+            drive_controls.stop(1)
+            drive_controls.drive_forward(speed, 1)
+            drive_controls.stop(1)
+            drive_controls.turn_left(speed, 1)
+            drive_controls.stop(1)
+            continue
+        # else:
+        #     # Calculate angle to target
+        #     angle_to_target = calculate_bearing(
+        #         (gps_location[0], gps_location[1]), (next_location[0], next_location[1])
+        #     )
 
-            # Check again for obstacles after turning
-            if obstacle_detected:
-                # Turn the other way
-                drive_controls.turn_right(speed, 2)
+        #     # Turn the robot towards the target
+        #     if angle_to_target > 0:
+        #         drive_controls.turn_right_degrees(
+        #             speed, angle_to_target, turning_speed_dps
+        #         )
+        #     else:
+        #         drive_controls.turn_left_degrees(
+        #             speed, -angle_to_target, turning_speed_dps
+        #         )
         else:
-            # Calculate angle to target
-            angle_to_target = calculate_bearing(
-                (gps_location[0], gps_location[1]), (next_location[0], next_location[1])
-            )
-
-            # Turn the robot towards the target
-            if angle_to_target > 0:
-                drive_controls.turn_right_degrees(
-                    speed, angle_to_target, turning_speed_dps
-                )
-            else:
-                drive_controls.turn_left_degrees(
-                    speed, -angle_to_target, turning_speed_dps
-                )
-
             # Drive forward
             drive_controls.drive_forward(speed, 1)

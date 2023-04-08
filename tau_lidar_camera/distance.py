@@ -39,41 +39,44 @@ def setup(serialPort=None):
     return camera
 
 def run(camera):
-    while True:
+    # while True:
 
-        frame = camera.readFrame(FrameType.DISTANCE)
+    frame = camera.readFrame(FrameType.DISTANCE)
 
-        if frame:
-            
-            mat_depth = np.frombuffer(frame.data_depth, dtype=np.float32, count=-1, offset=0).reshape(frame.height, frame.width)
+    if frame:
+        
+        mat_depth = np.frombuffer(frame.data_depth, dtype=np.float32, count=-1, offset=0).reshape(frame.height, frame.width)
 
-            leftAvg = 0
-            rightAvg = 0
-            # 60 arrays, 160 rows, 160 arrayRows
-            for array in mat_depth:
-                arrayRow = 0
-                # for row in array:
-                #     curr = np.nanmean(row)
-                #     if (~np.isnan(curr)):
-                #         if (arrayRow < 80):
-                #             leftAvg += curr
-                #         else:
-                #             rightAvg += curr
-                #     arrayRow += 1
-                leftMean = np.nanmean(array[0:79])
-                if (~np.isnan(leftMean)):
-                    leftAvg += leftMean
-                rightMean = np.nanmean(array[80:159])
-                if (~np.isnan(rightMean)):
-                    rightAvg += rightMean
+        leftAvg = 0
+        rightAvg = 0
+        # 60 arrays, 160 rows, 160 arrayRows
+        for array in mat_depth:
+            arrayRow = 0
+            # for row in array:
+            #     curr = np.nanmean(row)
+            #     if (~np.isnan(curr)):
+            #         if (arrayRow < 80):
+            #             leftAvg += curr
+            #         else:
+            #             rightAvg += curr
+            #     arrayRow += 1
+            leftMean = np.nanmean(array[0:79])
+            if (~np.isnan(leftMean)):
+                leftAvg += leftMean
+            rightMean = np.nanmean(array[80:159])
+            if (~np.isnan(rightMean)):
+                rightAvg += rightMean
 
-            # print(leftAvg, " ", rightAvg)            
-            if (leftAvg < 125 or rightAvg < 125):
-                if (leftAvg < rightAvg):
-                    print("Object detected closer to the left. Turn right")
-                else:
-                    print ("Object detected closer to the right. Turn left.")
-
+        # print(leftAvg, " ", rightAvg)            
+        if (leftAvg < 125 or rightAvg < 125):
+            if (leftAvg < rightAvg):
+                print("Object detected closer to the left. Turn right")
+                return "turn right"
+            else:
+                print ("Object detected closer to the right. Turn left.")
+                return "turn left"
+        else:
+            return "straight"
 
             # mat_depth_rgb = np.frombuffer(frame.data_depth_rgb, dtype=np.uint16, count=-1, offset=0).reshape(frame.height, frame.width, 3)
             # mat_depth_rgb = mat_depth_rgb.astype(np.uint8)
@@ -121,34 +124,35 @@ def cleanup(camera):
     camera.close()
 
 
-def run():
+def start_lidar():
     parser = argparse.ArgumentParser(description='Senses when objects are near')
     parser.add_argument('--port', metavar='<serial port>', default=None,
                         help='Specify a serial port for the Tau Camera')
     args = parser.parse_args()
 
     camera = setup(args.port)
+    return camera
 
+
+def run_once(camera):
     if camera:
         try:
             run(camera)
         except Exception as e:
             print(e)
 
-        cleanup(camera)
+# if __name__ == "__main__":
+#     parser = argparse.ArgumentParser(description='Senses when objects are near')
+#     parser.add_argument('--port', metavar='<serial port>', default=None,
+#                         help='Specify a serial port for the Tau Camera')
+#     args = parser.parse_args()
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Senses when objects are near')
-    parser.add_argument('--port', metavar='<serial port>', default=None,
-                        help='Specify a serial port for the Tau Camera')
-    args = parser.parse_args()
+#     camera = setup(args.port)
 
-    camera = setup(args.port)
+#     if camera:
+#         try:
+#             run(camera)
+#         except Exception as e:
+#             print(e)
 
-    if camera:
-        try:
-            run(camera)
-        except Exception as e:
-            print(e)
-
-        cleanup(camera)
+#         cleanup(camera)
