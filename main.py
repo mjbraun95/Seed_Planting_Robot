@@ -97,8 +97,9 @@ if __name__ == "__main__":
     # while True:
     try:
         for i in range(0,9):
-
-            if run_once(lidar_camera) == "turn left":
+            next_step = run_once(lidar_camera)
+            print("next_step: ", next_step)
+            if next_step == "turn left":
                 # Stop the robot and decide which way to turn
                 drive_controls.stop(1)
                 drive_controls.turn_left(speed, 1)
@@ -109,7 +110,7 @@ if __name__ == "__main__":
                 drive_controls.stop(1)
                 continue
             
-            elif run_once(lidar_camera) == "turn right":
+            elif next_step == "turn right":
                 drive_controls.stop(1)
                 drive_controls.turn_right(speed, 1)
                 drive_controls.stop(1)
