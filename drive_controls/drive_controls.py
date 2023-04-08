@@ -10,13 +10,13 @@ M2PWM = 22
 M2DIR = 23
 
 # Define the encoder pins for both motors
-# ENCODER1_PIN = 23 # TODO: Change
-# ENCODER2_PIN = 24 # TODO: Change
+ENCODER1_PIN = 24 # TODO: Change
+ENCODER2_PIN = 25 # TODO: Change
 
 # Set up the GPIO pins
 GPIO.setmode(GPIO.BCM)
-# GPIO.setup(ENCODER1_PIN, GPIO.IN)
-# GPIO.setup(ENCODER2_PIN, GPIO.IN)
+GPIO.setup(ENCODER1_PIN, GPIO.IN)
+GPIO.setup(ENCODER2_PIN, GPIO.IN)
 
 # Initialize the encoder counters
 encoder1_count = 0
@@ -53,14 +53,16 @@ def reset_encoder_counts():
 def encoder1_callback(channel):
     global encoder1_count
     encoder1_count += 1
+    print("encoder1_count: {}".format(encoder1_count))
 
 def encoder2_callback(channel):
     global encoder2_count
     encoder2_count += 1
+    print("encoder2_count: {}".format(encoder2_count))
 
-# # Attach the callback functions to the encoder pins
-# GPIO.add_event_detect(ENCODER1_PIN, GPIO.RISING, callback=encoder1_callback)
-# GPIO.add_event_detect(ENCODER2_PIN, GPIO.RISING, callback=encoder2_callback)
+# Attach the callback functions to the encoder pins
+GPIO.add_event_detect(ENCODER1_PIN, GPIO.RISING, callback=encoder1_callback)
+GPIO.add_event_detect(ENCODER2_PIN, GPIO.RISING, callback=encoder2_callback)
 
 # TODO: Test
 # TODO: Calibrate turning_speed_dps
@@ -171,10 +173,7 @@ def test1():
     stop(1)
 
 def test2():
-    pulses_per_rotation = 300
-
-    # Drive forward at 25% speed for 3 seconds
-    drive_forward(25, 3)
+    pulses_per_rotation = 50
 
     stop(1)
 
@@ -183,18 +182,8 @@ def test2():
 
     stop(1)
 
-    # Drive forward at 25% speed for 3 seconds
-    drive_forward(25, 3)
-
-    stop(1)
-
     # Turn right 180 degrees at 25% speed
     turn_right_degrees(25, 180, pulses_per_rotation, WHEELBASE)
-
-    stop(1)
-
-    # Drive backward at 25% speed for 3 seconds
-    drive_backward(25, 3)
 
     stop(1)
 
@@ -202,7 +191,7 @@ def test2():
     pivot_left(25, 1)
 
     stop(1)
-    
+
     # Pivot right in place at 25% speed for 1 second
     pivot_right(25, 1)
 
