@@ -67,6 +67,7 @@ def run(camera):
                 if (~np.isnan(rightMean)):
                     rightAvg += rightMean
 
+            print(leftAvg, " ", rightAvg)            
             if (leftAvg < 125 or rightAvg < 125):
                 if (leftAvg < rightAvg):
                     print("Object detected closer to the left. Turn right")
@@ -74,8 +75,8 @@ def run(camera):
                     print ("Object detected closer to the right. Turn left.")
 
 
-            # mat_depth_rgb = np.frombuffer(frame.data_depth_rgb, dtype=np.uint16, count=-1, offset=0).reshape(frame.height, frame.width, 3)
-            # mat_depth_rgb = mat_depth_rgb.astype(np.uint8)
+            mat_depth_rgb = np.frombuffer(frame.data_depth_rgb, dtype=np.uint16, count=-1, offset=0).reshape(frame.height, frame.width, 3)
+            mat_depth_rgb = mat_depth_rgb.astype(np.uint8)
 
             # # array is 160 rows, 3 columns
             # # first 80 rows is left half, last 80 rows is right half
@@ -104,14 +105,14 @@ def run(camera):
             #         print ("Object detected closer to the right. Turn left.")
 
 
-            # # Upscalling the image
-            # upscale = 4
-            # img =  cv2.resize(mat_depth_rgb, (frame.width*upscale, frame.height*upscale))
+            # Upscalling the image
+            upscale = 4
+            img =  cv2.resize(mat_depth_rgb, (frame.width*upscale, frame.height*upscale))
 
-            # cv2.imshow('Depth Map', img)
+            cv2.imshow('Depth Map', img)
 
-            # # Press "esc" to close camera window
-            # if cv2.waitKey(1) == 27: break
+            # Press "esc" to close camera window
+            if cv2.waitKey(1) == 27: break
 
 
 def cleanup(camera):
@@ -119,6 +120,22 @@ def cleanup(camera):
     cv2.destroyAllWindows()
     camera.close()
 
+
+def run():
+    parser = argparse.ArgumentParser(description='Senses when objects are near')
+    parser.add_argument('--port', metavar='<serial port>', default=None,
+                        help='Specify a serial port for the Tau Camera')
+    args = parser.parse_args()
+
+    camera = setup(args.port)
+
+    if camera:
+        try:
+            run(camera)
+        except Exception as e:
+            print(e)
+
+        cleanup(camera)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Senses when objects are near')

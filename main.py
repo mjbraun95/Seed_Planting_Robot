@@ -8,6 +8,8 @@ import serial
 import lidar_module
 import seed_planter
 from bluetooth_gatt_server import main as bluetooth_server
+from tau_lidar_camera.distance import run as run_lidar
+# from tau_lidar_camera import distance
 
 uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
 gps = adafruit_gps.GPS(uart, debug=False)  # Use UART/pyserial
