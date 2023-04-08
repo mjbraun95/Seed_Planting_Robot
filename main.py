@@ -1,7 +1,7 @@
 import time
 import threading
 import math
-import drive_controls
+from drive_controls import drive_controls
 import board
 import adafruit_gps
 import serial
