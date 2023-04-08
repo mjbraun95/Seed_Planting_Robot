@@ -109,6 +109,12 @@ if __name__ == "__main__":
                 # drive_controls.stop(0.25)
                 drive_controls.turn_right(speed/3, duration*3)
                 # drive_controls.stop(0.25)
+                drive_controls.drive_forward(speed, 0.5)
+                drive_controls.drive_forward(speed, 0.5)
+                drive_controls.drive_forward(speed, 0.5)
+                drive_controls.drive_forward(speed, 0.5)
+                drive_controls.drive_forward(speed, 0.5)
+                drive_controls.drive_forward(speed, 0.5)
                 continue
             
             elif next_step == "turn right":
@@ -119,6 +125,12 @@ if __name__ == "__main__":
                 # drive_controls.stop(0.25)
                 drive_controls.turn_left(speed/3, duration*3)
                 # drive_controls.stop(0.25)
+                drive_controls.drive_forward(speed, 0.5)
+                drive_controls.drive_forward(speed, 0.5)
+                drive_controls.drive_forward(speed, 0.5)
+                drive_controls.drive_forward(speed, 0.5)
+                drive_controls.drive_forward(speed, 0.5)
+                drive_controls.drive_forward(speed, 0.5)
                 continue
             # else:
             #     # Calculate angle to target
