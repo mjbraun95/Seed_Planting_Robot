@@ -68,8 +68,8 @@ def update_gps_data():
 
 if __name__ == "__main__":
     # Set robot speed and turning speed
-    speed = 10
-    duration = 3
+    speed = 25
+    duration = 1
     # turning_speed_dps = 100
     
     # Start bluetooth server
