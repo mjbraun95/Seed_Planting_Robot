@@ -68,7 +68,7 @@ def run(camera):
                 rightAvg += rightMean
 
         print(leftAvg, " ", rightAvg)            
-        if (leftAvg < 60 or rightAvg < 60):
+        if (leftAvg < 50 or rightAvg < 50):
             if (leftAvg < rightAvg):
                 print("Object detected closer to the left. Turn right")
                 return "turn right"
