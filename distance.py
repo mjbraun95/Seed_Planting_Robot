@@ -68,7 +68,7 @@ def run(camera):
                 rightAvg += rightMean
 
         print(leftAvg, " ", rightAvg)            
-        if (leftAvg < 140 or rightAvg < 140):
+        if (leftAvg < 60 or rightAvg < 60):
             if (leftAvg < rightAvg):
                 print("Object detected closer to the left. Turn right")
                 return "turn right"
@@ -76,8 +76,8 @@ def run(camera):
                 print ("Object detected closer to the right. Turn left.")
                 return "turn left"
 
-            # mat_depth_rgb = np.frombuffer(frame.data_depth_rgb, dtype=np.uint16, count=-1, offset=0).reshape(frame.height, frame.width, 3)
-            # mat_depth_rgb = mat_depth_rgb.astype(np.uint8)
+        mat_depth_rgb = np.frombuffer(frame.data_depth_rgb, dtype=np.uint16, count=-1, offset=0).reshape(frame.height, frame.width, 3)
+        mat_depth_rgb = mat_depth_rgb.astype(np.uint8)
 
             # # array is 160 rows, 3 columns
             # # first 80 rows is left half, last 80 rows is right half
@@ -107,15 +107,14 @@ def run(camera):
 
 
             # Upscalling the image
-            upscale = 4
-            img =  cv2.resize(mat_depth_rgb, (frame.width*upscale, frame.height*upscale))
+        upscale = 4
+        img =  cv2.resize(mat_depth_rgb, (frame.width*upscale, frame.height*upscale))
 
-            cv2.imshow('Depth Map', img)
+        cv2.imshow('Depth Map', img)
 
             # Press "esc" to close camera window
             # if cv2.waitKey(1) == 27: break
-        else:
-            return "straight"
+        return "straight"
 
 def cleanup(camera):
     print('\nShutting down ...')
