@@ -4,46 +4,53 @@ import math
 
 # Define the GPIO pins connected to the motor driver board
 # TODO?: Convert to BOARD format
-M1PWM = 17
-M1DIR = 27
-M2PWM = 22
-M2DIR = 23
+def init_drive_controls():
+    M1PWM = 17
+    M1DIR = 27
+    M2PWM = 22
+    M2DIR = 23
 
-# Define the encoder pins for both motors
-ENCODER1_PIN = 24 # TODO: Change
-ENCODER2_PIN = 25 # TODO: Change
+    # Define the encoder pins for both motors
+    ENCODER1_PIN = 24 # TODO: Change
+    ENCODER2_PIN = 25 # TODO: Change
 
-# Set up the GPIO pins
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(ENCODER1_PIN, GPIO.IN)
-GPIO.setup(ENCODER2_PIN, GPIO.IN)
+    # Set up the GPIO pins
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(ENCODER1_PIN, GPIO.IN)
+    GPIO.setup(ENCODER2_PIN, GPIO.IN)
 
-# Initialize the encoder counters
-encoder1_count = 0
-encoder2_count = 0
+    # Initialize the encoder counters
+    encoder1_count = 0
+    encoder2_count = 0
 
-# Define wheel parameters
-# TODO: Confirm in lab
-WHEELBASE = 393 #mm
-WHEEL_DIAMETER = 152 #mm
+    # Define wheel parameters
+    # TODO: Confirm in lab
+    WHEELBASE = 393 #mm
+    WHEEL_DIAMETER = 152 #mm
 
-# Set up the Raspberry Pi's GPIO mode
-# TODO?: Convert to BOARD format
-GPIO.setmode(GPIO.BCM)
+    # Set up the Raspberry Pi's GPIO mode
+    # TODO?: Convert to BOARD format
+    GPIO.setmode(GPIO.BCM)
 
-# Set up the GPIO pins as output pins
-GPIO.setup(M1PWM, GPIO.OUT)
-GPIO.setup(M1DIR, GPIO.OUT)
-GPIO.setup(M2PWM, GPIO.OUT)
-GPIO.setup(M2DIR, GPIO.OUT)
+    # Set up the GPIO pins as output pins
+    GPIO.setup(M1PWM, GPIO.OUT)
+    GPIO.setup(M1DIR, GPIO.OUT)
+    GPIO.setup(M2PWM, GPIO.OUT)
+    GPIO.setup(M2DIR, GPIO.OUT)
 
-# Set up the PWM signals for motor speed control (with a 100Hz frequency)
-motor1_pwm = GPIO.PWM(M1PWM, 100)
-motor2_pwm = GPIO.PWM(M2PWM, 100)
+    # Set up the PWM signals for motor speed control (with a 100Hz frequency)
+    motor1_pwm = GPIO.PWM(M1PWM, 100)
+    motor2_pwm = GPIO.PWM(M2PWM, 100)
 
-# Start the PWM signals with a 0% duty cycle (stopped motors)
-motor1_pwm.start(0)
-motor2_pwm.start(0)
+    # Start the PWM signals with a 0% duty cycle (stopped motors)
+    motor1_pwm.start(0)
+    motor2_pwm.start(0)
+    
+    
+
+    # Attach the callback functions to the encoder pins
+    GPIO.add_event_detect(ENCODER1_PIN, GPIO.RISING, callback=encoder1_callback)
+    GPIO.add_event_detect(ENCODER2_PIN, GPIO.RISING, callback=encoder2_callback)
 
 def reset_encoder_counts():
     global encoder1_count, encoder2_count
@@ -60,9 +67,7 @@ def encoder2_callback(channel):
     encoder2_count += 1
     print("encoder2_count: {}".format(encoder2_count))
 
-# Attach the callback functions to the encoder pins
-GPIO.add_event_detect(ENCODER1_PIN, GPIO.RISING, callback=encoder1_callback)
-GPIO.add_event_detect(ENCODER2_PIN, GPIO.RISING, callback=encoder2_callback)
+
 
 # TODO: Test
 # TODO: Calibrate turning_speed_dps
@@ -197,6 +202,7 @@ def test2():
     # pivot_right(25, 1)
 
 if __name__ == '__main__':
+    init_drive_controls()
     try:
         test1()
         test1(30)

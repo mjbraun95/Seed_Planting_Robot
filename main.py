@@ -93,48 +93,61 @@ if __name__ == "__main__":
     lidar_thread.start()
     gps_thread.start()
 
+    drive_controls.init_drive_controls()
+
     # # Plant seeds
     # seed_planter.seed1()
     # seed_planter.seed2()
 
     # while True:
-    for i in range(0,9):
+    try:
+        for i in range(0,9):
 
-        if run_once(lidar_camera) == "turn left":
-            # Stop the robot and decide which way to turn
-            drive_controls.stop(1)
-            drive_controls.turn_left(speed, 1)
-            drive_controls.stop(1)
-            drive_controls.drive_forward(speed, 1)
-            drive_controls.stop(1)
-            drive_controls.turn_right(speed, 1)
-            drive_controls.stop(1)
-            continue
-        
-        elif run_once(lidar_camera) == "turn right":
-            drive_controls.stop(1)
-            drive_controls.turn_right(speed, 1)
-            drive_controls.stop(1)
-            drive_controls.drive_forward(speed, 1)
-            drive_controls.stop(1)
-            drive_controls.turn_left(speed, 1)
-            drive_controls.stop(1)
-            continue
-        # else:
-        #     # Calculate angle to target
-        #     angle_to_target = calculate_bearing(
-        #         (gps_location[0], gps_location[1]), (next_location[0], next_location[1])
-        #     )
+            if run_once(lidar_camera) == "turn left":
+                # Stop the robot and decide which way to turn
+                drive_controls.stop(1)
+                drive_controls.turn_left(speed, 1)
+                drive_controls.stop(1)
+                drive_controls.drive_forward(speed, 1)
+                drive_controls.stop(1)
+                drive_controls.turn_right(speed, 1)
+                drive_controls.stop(1)
+                continue
+            
+            elif run_once(lidar_camera) == "turn right":
+                drive_controls.stop(1)
+                drive_controls.turn_right(speed, 1)
+                drive_controls.stop(1)
+                drive_controls.drive_forward(speed, 1)
+                drive_controls.stop(1)
+                drive_controls.turn_left(speed, 1)
+                drive_controls.stop(1)
+                continue
+            # else:
+            #     # Calculate angle to target
+            #     angle_to_target = calculate_bearing(
+            #         (gps_location[0], gps_location[1]), (next_location[0], next_location[1])
+            #     )
 
-        #     # Turn the robot towards the target
-        #     if angle_to_target > 0:
-        #         drive_controls.turn_right_degrees(
-        #             speed, angle_to_target, turning_speed_dps
-        #         )
-        #     else:
-        #         drive_controls.turn_left_degrees(
-        #             speed, -angle_to_target, turning_speed_dps
-        #         )
-        else:
-            # Drive forward
-            drive_controls.drive_forward(speed, 1)
+            #     # Turn the robot towards the target
+            #     if angle_to_target > 0:
+            #         drive_controls.turn_right_degrees(
+            #             speed, angle_to_target, turning_speed_dps
+            #         )
+            #     else:
+            #         drive_controls.turn_left_degrees(
+            #             speed, -angle_to_target, turning_speed_dps
+            #         )
+            else:
+                # Drive forward
+                drive_controls.drive_forward(speed, 1)
+
+
+    finally:
+        # Clean up the GPIO pins and stop the PWM signals
+        motor1_pwm.stop()
+        motor2_pwm.stop()
+        GPIO.cleanup()
+
+        # Clean up everything
+        cleanup(lidar_camera)
