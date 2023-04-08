@@ -68,7 +68,7 @@ def update_gps_data():
 
 if __name__ == "__main__":
     # Set robot speed and turning speed
-    speed = 25
+    speed = 30
     duration = 1
     # turning_speed_dps = 100
     
