@@ -10,13 +10,13 @@ M2PWM = 22
 M2DIR = 23
 
 # Define the encoder pins for both motors
-ENCODER1_PIN = 23 # TODO: Change
-ENCODER2_PIN = 24 # TODO: Change
+# ENCODER1_PIN = 23 # TODO: Change
+# ENCODER2_PIN = 24 # TODO: Change
 
 # Set up the GPIO pins
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(ENCODER1_PIN, GPIO.IN)
-GPIO.setup(ENCODER2_PIN, GPIO.IN)
+# GPIO.setup(ENCODER1_PIN, GPIO.IN)
+# GPIO.setup(ENCODER2_PIN, GPIO.IN)
 
 # Initialize the encoder counters
 encoder1_count = 0
@@ -138,20 +138,44 @@ def turn_left(speed, duration):
 def turn_right(speed, duration):
     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.LOW, speed, duration)
 
+def stop(duration):
+    drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.LOW, GPIO.LOW, 0, duration)
+
+# def pivot_left(speed, duration):
+#     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.LOW, GPIO.HIGH, speed, duration/2)
+#     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.HIGH, speed, duration/2)
+
+# def pivot_right(speed, duration):
+#     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.LOW, speed, duration/2)
+#     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.HIGH, speed, duration/2)
+
+# def drive_left(speed, duration):
+#     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.LOW, GPIO.HIGH, speed, duration)
+
+# def drive_right(speed, duration):
+#     drive_motor(motor1_pwm, M1DIR, motor2_pwm, M2DIR, GPIO.HIGH, GPIO.LOW, speed, duration)
 
 if __name__ == '__main__':
     try:
         # Drive forward at 25% speed for 2 seconds
-        drive_forward(25, 2)
+        drive_forward(25, 1)
+
+        stop(1)
 
         # Drive backward at 25% speed for 1 second
         drive_backward(25, 1)
 
+        stop(1)
+
         # Turn left at 25% speed for 1 second
         turn_left(25, 1)
 
+        stop(1)
+
         # Turn right at 25% speed for 1 second
         turn_right(25, 1)
+        
+        stop(1)
 
     finally:
         # Clean up the GPIO pins and stop the PWM signals
