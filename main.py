@@ -106,7 +106,7 @@ if __name__ == "__main__":
     lidar_camera = start_lidar()
     
     # GPIO.setmode(GPIO.BOARD)
-    # GPIO.setmode(GPIO.BCM)
+    GPIO.setmode(GPIO.BCM)
     # GPIO.setup(29,GPIO.OUT) # Set pin 29 as output)
     GPIO.setup(5,GPIO.OUT) # Set pin 29 as output)
     
