@@ -224,10 +224,10 @@ def gotta_go_fast():
 if __name__ == '__main__':
     init_drive_controls()
     try:
-        test1()
-        test1(30)
+        # test1()
+        # test1(30)
         # test2()
-
+        gotta_go_fast()
     finally:
         # Clean up the GPIO pins and stop the PWM signals
         motor1_pwm.stop()
