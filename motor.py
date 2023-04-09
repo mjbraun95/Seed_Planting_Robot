@@ -4,13 +4,14 @@ import time
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(29,GPIO.OUT) # Set pin 29 as output)
 
-servo = GPIO.PWM(29,50) # Define servo as PWM, pulse 50Hz
+# servo = GPIO.PWM(29,50) # Define servo as PWM, pulse 50Hz
+servo = GPIO.PWM(29,40) # Define servo as PWM, pulse 50Hz
 servo.start(0) # Start PWM with pulse off
 
 def rotate(angle):
     servo.ChangeDutyCycle(2+(angle/18))
     time.sleep(0.5) # gives time for motor to turn
-    time.sleep(10.5) # gives time for motor to turn
+    time.sleep(5) # gives time for motor to turn
     servo.ChangeDutyCycle(0)
 
 def seed1():
