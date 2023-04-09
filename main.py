@@ -91,6 +91,7 @@ if __name__ == "__main__":
     # gps_thread.start()
 
     drive_controls.init_drive_controls()
+    seed_drill_motor.init_seed_drill_motor()
 
     # # Plant seeds
     # seed_planter.seed1()
@@ -140,6 +141,7 @@ if __name__ == "__main__":
         # Clean up the GPIO pins and stop the PWM signals
         motor1_pwm.stop()
         motor2_pwm.stop()
+        seed_drill_motor.stop_seed_drill_motor()
         GPIO.cleanup()
 
         # Clean up everything
