@@ -8,7 +8,7 @@ import serial
 # from tau_lidar_camera.distance import cleanup, start, run_once, run
 from distance import cleanup, start_lidar, run_once, run
 # import motor as seed_drill_motor
-
+import RPi.GPIO as GPIO
 global motor1_pwm
 global motor2_pwm
 
