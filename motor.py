@@ -3,7 +3,7 @@ import time
 # servo = GPIO.PWM(11,50) # Define servo as PWM, pulse 50Hz
 def init_seed_drill_motor():
     # GPIO.setmode(GPIO.BOARD)
-    GPIO.setmode(GPIO.BCM)
+    # GPIO.setmode(GPIO.BCM)
     # GPIO.setup(29,GPIO.OUT) # Set pin 29 as output)
     GPIO.setup(5,GPIO.OUT) # Set pin 29 as output)
     
