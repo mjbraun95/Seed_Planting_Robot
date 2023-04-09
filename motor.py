@@ -27,8 +27,8 @@ def seed2(servo):
     rotate(80, servo) # return to neutral
     time.sleep(0.5)
 
-seed1()
-seed2()
+# seed1()
+# seed2()
 
 def stop_seed_drill_motor():
     servo.stop()
