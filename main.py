@@ -7,7 +7,7 @@ import serial
 # from bluetooth_gatt_server.example_gatt_server import main as bluetooth_server
 # from tau_lidar_camera.distance import cleanup, start, run_once, run
 from distance import cleanup, start_lidar, run_once, run
-import motor as seed_drill_motor
+# import motor as seed_drill_motor
 
 global motor1_pwm
 global motor2_pwm
@@ -65,6 +65,29 @@ def update_gps_data():
             gps_location = [gps.latitude, gps.longitude]
             calc_orientation()
 
+# servo = GPIO.PWM(11,50) # Define servo as PWM, pulse 50Hz
+
+
+def rotate(angle, servo):
+    servo.ChangeDutyCycle(2+(angle/18))
+    time.sleep(0.5) # gives time for motor to turn
+    servo.ChangeDutyCycle(0)
+
+def seed1(servo):
+    rotate(80, servo) # plant seed
+    time.sleep(0.75) # give time to drop seeds
+    rotate(93, servo) # return to neutral
+    time.sleep(0.5)
+
+def seed2(servo):
+    rotate(93, servo) # plant seed
+    time.sleep(0.75) # give time to drop seeds
+    rotate(80, servo) # return to neutral
+    time.sleep(0.5)
+
+# seed1()
+# seed2()
+
 
 
 if __name__ == "__main__":
@@ -82,7 +105,15 @@ if __name__ == "__main__":
 
     lidar_camera = start_lidar()
     
-
+    # GPIO.setmode(GPIO.BOARD)
+    # GPIO.setmode(GPIO.BCM)
+    # GPIO.setup(29,GPIO.OUT) # Set pin 29 as output)
+    GPIO.setup(5,GPIO.OUT) # Set pin 29 as output)
+    
+    # global servo
+    servo = GPIO.PWM(11,50) # Define servo as PWM, pulse 50Hz
+    servo.start(0) # Start PWM with pulse off
+    
     # # Start LiDAR and GPS data update threads
     # lidar_thread = threading.Thread(target=update_lidar_data)
     # gps_thread = threading.Thread(target=update_gps_data)
@@ -91,7 +122,7 @@ if __name__ == "__main__":
     # gps_thread.start()
 
     drive_controls.init_drive_controls()
-    servo = seed_drill_motor.init_seed_drill_motor()
+    # servo = seed_drill_motor.init_seed_drill_motor()
 
     # # Plant seeds
 
@@ -141,7 +172,9 @@ if __name__ == "__main__":
         # Clean up the GPIO pins and stop the PWM signals
         motor1_pwm.stop()
         motor2_pwm.stop()
-        seed_drill_motor.stop_seed_drill_motor()
+        servo.stop()
+        print("Finished planting seeds.")
+        
         GPIO.cleanup()
 
         # Clean up everything
