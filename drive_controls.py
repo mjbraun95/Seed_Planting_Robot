@@ -214,12 +214,7 @@ def test2():
     # pivot_right(25, 1)
     
 def gotta_go_fast():
-    drive_forward(30, 1)
-    drive_forward(40, 1)
-    drive_forward(50, 1)
-    drive_forward(60, 1)
-    drive_forward(70, 1)
-    drive_forward(80, 1)
+    drive_forward(100, 4)
 
 if __name__ == '__main__':
     init_drive_controls()
