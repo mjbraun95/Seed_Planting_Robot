@@ -17,12 +17,12 @@ def init_drive_controls():
     # Define the encoder pins for both motors
     ENCODER1_PIN = 24 # TODO: Change
     ENCODER2_PIN = 25 # TODO: Change
-
+    SEED_DRILL = 5
     # Set up the GPIO pins
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(ENCODER1_PIN, GPIO.IN)
     GPIO.setup(ENCODER2_PIN, GPIO.IN)
-
+    GPIO.setup(SEED_DRILL, GPIO.OUT) # Set pin 29 as output)
     # Initialize the encoder counters
     encoder1_count = 0
     encoder2_count = 0
