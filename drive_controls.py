@@ -17,13 +17,10 @@ def init_drive_controls():
     # Define the encoder pins for both motors
     ENCODER1_PIN = 24 # TODO: Change
     ENCODER2_PIN = 25 # TODO: Change
-    global SEED_DRILL
-    SEED_DRILL = 5
     # Set up the GPIO pins
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(ENCODER1_PIN, GPIO.IN)
     GPIO.setup(ENCODER2_PIN, GPIO.IN)
-    GPIO.setup(SEED_DRILL, GPIO.OUT) # Set pin 29 as output)
     # Initialize the encoder counters
     encoder1_count = 0
     encoder2_count = 0
@@ -215,6 +212,14 @@ def test2():
 
     # # Pivot right in place at 25% speed for 1 second
     # pivot_right(25, 1)
+    
+def gotta_go_fast():
+    drive_forward(30, 1)
+    drive_forward(40, 1)
+    drive_forward(50, 1)
+    drive_forward(60, 1)
+    drive_forward(70, 1)
+    drive_forward(80, 1)
 
 if __name__ == '__main__':
     init_drive_controls()
