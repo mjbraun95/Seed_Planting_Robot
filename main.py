@@ -7,6 +7,7 @@ import serial
 # from bluetooth_gatt_server.example_gatt_server import main as bluetooth_server
 # from tau_lidar_camera.distance import cleanup, start, run_once, run
 from distance import cleanup, start_lidar, run_once, run
+import motor as seed_drill_motor
 
 global motor1_pwm
 global motor2_pwm
@@ -69,7 +70,7 @@ def update_gps_data():
 if __name__ == "__main__":
     # Set robot speed and turning speed
     speed = 30
-    duration = 1
+    duration = 5
     # turning_speed_dps = 100
     
     # Start bluetooth server
@@ -97,59 +98,38 @@ if __name__ == "__main__":
 
     # while True:
     try:
-        for i in range(0,9):
-            next_step = run_once(lidar_camera)
-            print("next_step: ", next_step)
-            if next_step == "turn left":
-                # Stop the robot and decide which way to turn
-                # drive_controls.stop(0.25)
-                drive_controls.turn_left(speed/3, duration*3)
-                # drive_controls.stop(0.25)
-                drive_controls.drive_forward(speed/2, duration*2)
-                # drive_controls.stop(0.25)
-                drive_controls.turn_right(speed/3, duration*3)
-                # drive_controls.stop(0.25)
-                drive_controls.drive_forward(speed, 0.5)
-                drive_controls.drive_forward(speed, 0.5)
-                drive_controls.drive_forward(speed, 0.5)
-                drive_controls.drive_forward(speed, 0.5)
-                drive_controls.drive_forward(speed, 0.5)
-                drive_controls.drive_forward(speed, 0.5)
-                continue
+        drive_controls.drive_forward(speed, duration)
+        seed_drill_motor.seed1()
+        # for i in range(0,9):
+        #     next_step = run_once(lidar_camera)
+        #     print("next_step: ", next_step)
+        #     if next_step == "turn left":
+        #         # Stop the robot and decide which way to turn
+        #         drive_controls.turn_left(speed/3, duration*3)
+        #         drive_controls.drive_forward(speed/2, duration*2)
+        #         drive_controls.turn_right(speed/3, duration*3)
+        #         drive_controls.drive_forward(speed, 0.5)
+        #         drive_controls.drive_forward(speed, 0.5)
+        #         drive_controls.drive_forward(speed, 0.5)
+        #         drive_controls.drive_forward(speed, 0.5)
+        #         drive_controls.drive_forward(speed, 0.5)
+        #         drive_controls.drive_forward(speed, 0.5)
+        #         continue
             
-            elif next_step == "turn right":
-                # drive_controls.stop(0.25)
-                drive_controls.turn_right(speed/3, duration*3)
-                # drive_controls.stop(0.25)
-                drive_controls.drive_forward(speed/2, duration*2)
-                # drive_controls.stop(0.25)
-                drive_controls.turn_left(speed/3, duration*3)
-                # drive_controls.stop(0.25)
-                drive_controls.drive_forward(speed, 0.5)
-                drive_controls.drive_forward(speed, 0.5)
-                drive_controls.drive_forward(speed, 0.5)
-                drive_controls.drive_forward(speed, 0.5)
-                drive_controls.drive_forward(speed, 0.5)
-                drive_controls.drive_forward(speed, 0.5)
-                continue
-            # else:
-            #     # Calculate angle to target
-            #     angle_to_target = calculate_bearing(
-            #         (gps_location[0], gps_location[1]), (next_location[0], next_location[1])
-            #     )
-
-            #     # Turn the robot towards the target
-            #     if angle_to_target > 0:
-            #         drive_controls.turn_right_degrees(
-            #             speed, angle_to_target, turning_speed_dps
-            #         )
-            #     else:
-            #         drive_controls.turn_left_degrees(
-            #             speed, -angle_to_target, turning_speed_dps
-            #         )
-            else:
-                # Drive forward
-                drive_controls.drive_forward(speed, 0.5)
+        #     elif next_step == "turn right":
+        #         drive_controls.turn_right(speed/3, duration*3)
+        #         drive_controls.drive_forward(speed/2, duration*2)
+        #         drive_controls.turn_left(speed/3, duration*3)
+        #         drive_controls.drive_forward(speed, 0.5)
+        #         drive_controls.drive_forward(speed, 0.5)
+        #         drive_controls.drive_forward(speed, 0.5)
+        #         drive_controls.drive_forward(speed, 0.5)
+        #         drive_controls.drive_forward(speed, 0.5)
+        #         drive_controls.drive_forward(speed, 0.5)
+        #         continue
+        #     else:
+        #         # Drive forward
+        #         drive_controls.drive_forward(speed, 0.5)
 
 
     finally:
