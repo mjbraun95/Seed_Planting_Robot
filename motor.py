@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 import time
-
+global servo
 def init_seed_drill_motor():
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(29,GPIO.OUT) # Set pin 29 as output)
