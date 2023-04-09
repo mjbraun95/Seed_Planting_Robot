@@ -4,7 +4,7 @@ import time
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(29,GPIO.OUT) # Set pin 29 as output)
 
-servo = GPIO.PWM(11,50) # Define servo as PWM, pulse 50Hz
+servo = GPIO.PWM(29,50) # Define servo as PWM, pulse 50Hz
 servo.start(0) # Start PWM with pulse off
 
 def rotate(angle):
