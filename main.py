@@ -91,19 +91,19 @@ if __name__ == "__main__":
     # gps_thread.start()
 
     drive_controls.init_drive_controls()
-    seed_drill_motor.init_seed_drill_motor()
+    servo = seed_drill_motor.init_seed_drill_motor()
 
     # # Plant seeds
-    # seed_planter.seed1()
-    # seed_planter.seed2()
+
 
     # while True:
     try:
         drive_controls.drive_forward(speed, duration)
         # seed_drill_motor.seed1()
         drive_controls.stop(1)
+        # seed_planter.seed1(servo)
+        # seed_planter.seed2(servo)
         drive_controls.turn_left(speed, 0.5)
-        
         
         # for i in range(0,9):
         #     next_step = run_once(lidar_camera)
