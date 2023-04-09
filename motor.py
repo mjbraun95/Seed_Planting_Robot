@@ -2,11 +2,11 @@ import RPi.GPIO as GPIO
 import time
 # servo = GPIO.PWM(11,50) # Define servo as PWM, pulse 50Hz
 def init_seed_drill_motor():
-    global servo
-    servo = GPIO.PWM(11,50) # Define servo as PWM, pulse 50Hz
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(29,GPIO.OUT) # Set pin 29 as output)
     
+    global servo
+    servo = GPIO.PWM(11,50) # Define servo as PWM, pulse 50Hz
     servo.start(0) # Start PWM with pulse off
     return servo
 
