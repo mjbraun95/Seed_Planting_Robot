@@ -24,8 +24,8 @@ def seed2():
     rotate(80) # return to neutral
     time.sleep(0.5)
 
-seed1()
-# seed2()
+# seed1()
+seed2()
 
 servo.stop()
 GPIO.cleanup()
