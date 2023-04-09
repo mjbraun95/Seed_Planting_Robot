@@ -7,7 +7,7 @@ import serial
 # from bluetooth_gatt_server.example_gatt_server import main as bluetooth_server
 # from tau_lidar_camera.distance import cleanup, start, run_once, run
 from distance import cleanup, start_lidar, run_once, run
-# import motor as seed_drill_motor
+import motor as seed_drill_motor
 import RPi.GPIO as GPIO
 global motor1_pwm
 global motor2_pwm
@@ -122,7 +122,7 @@ if __name__ == "__main__":
     # gps_thread.start()
 
     drive_controls.init_drive_controls()
-    # servo = seed_drill_motor.init_seed_drill_motor()
+    seed_drill_motor.init_seed_drill_motor()
 
     # # Plant seeds
 
@@ -172,7 +172,7 @@ if __name__ == "__main__":
         # Clean up the GPIO pins and stop the PWM signals
         motor1_pwm.stop()
         motor2_pwm.stop()
-        servo.stop()
+        seed_drill_motor.stop_seed_drill_motor()
         print("Finished planting seeds.")
         
         GPIO.cleanup()
