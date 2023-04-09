@@ -99,7 +99,11 @@ if __name__ == "__main__":
     # while True:
     try:
         drive_controls.drive_forward(speed, duration)
-        seed_drill_motor.seed1()
+        # seed_drill_motor.seed1()
+        drive_controls.stop(1)
+        drive_controls.turn_left(speed, 0.5)
+        
+        
         # for i in range(0,9):
         #     next_step = run_once(lidar_camera)
         #     print("next_step: ", next_step)
